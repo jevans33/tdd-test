@@ -18,18 +18,15 @@ jobs:
       tag: '10.4'
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install mocha
-            - run: alias mocha='./node_modules/.bin/_mocha'
-            - run: npm ci
-            - run: npm test
+      - run:
+          command: npm start
+          background: true
+      - run: npm install mocha
+      - run: alias mocha='./node_modules/.bin/_mocha'
+      - run: npm ci
+      - run: npm test
 workflows:
   version: 2.1
-  build:
-    jobs:
-      - build
   build_and_test:
     jobs:
-      - build
       - test
